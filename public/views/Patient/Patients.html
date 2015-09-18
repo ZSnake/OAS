@@ -1,0 +1,104 @@
+<div>
+
+    <h2>Patients</h2>
+
+    <script type = "text/ng-template" id="Patient-save.html">
+        <form name="form" role="form" novalidate
+              class="ng-scope ng-invalid ng-invalid-required ng-dirty"
+              ng-submit="ok()">
+
+            <div class="modal-header">
+                <button type="button" class="close"
+                        ng-click="cancel()">&times;</button>
+                <h4 class="modal-title" id="myPatientLabel">Create or edit a Patient</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>ID</label>
+                    <input type="text" class="form-control" name="id"
+                           ng-model="Patient.id" readonly>
+                </div>
+
+                
+                <div class="form-group">
+                    <label>FirstName:</label>
+                    
+                    <input type="text" class="form-control" name="FirstName"
+                           ng-model="Patient.FirstName" ng-required="true"
+                           ng-minlength=0 ng-maxlength=20/>
+                    <span class="error" ng-show="form.FirstName.$error.minlength">Must be at least 0 characters.</span>
+                    <span class="error" ng-show="form.FirstName.$error.maxlength">Must be at most 20 characters.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>LastName:</label>
+                    
+                    <input type="text" class="form-control" name="LastName"
+                           ng-model="Patient.LastName" ng-required="true"
+                           ng-maxlength=20/>
+                    <span class="error" ng-show="form.LastName.$error.minlength">Must be at least  characters.</span>
+                    <span class="error" ng-show="form.LastName.$error.maxlength">Must be at most 20 characters.</span>
+                </div>
+                
+                <div class="form-group">
+                    <label>DateOfBirth:</label>
+                    
+                    <input type="text" class="form-control" name="DateOfBirth" ui-date="DateOfBirthDateOptions" ui-date-format="yy-mm-dd" 
+                           ng-model="Patient.DateOfBirth" ng-required="true"/>
+                </div>
+                
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" ng-click="cancel()">Cancel
+                </button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </script>
+
+    <button class="btn btn-primary btn-lg" ng-click="create()">
+        <span class="glyphicon glyphicon-flash"></span> Create a new Patient
+    </button>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th>ID</th>
+                
+                <th>FirstName</th>
+                
+                <th>LastName</th>
+                
+                <th>DateOfBirth</th>
+                
+            </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="Patient in Patients">
+                <td>{{Patient.id}}</td>
+                
+                <td>{{Patient.FirstName }}</td>
+                
+                <td>{{Patient.LastName }}</td>
+                
+                <td>{{Patient.DateOfBirth  | date:'yyyy-MM-dd'}}</td>
+                
+                <td>
+                    <button type="submit"
+                            ng-click="update(Patient.id)"
+                            class="btn">
+                        <span class="glyphicon glyphicon-pencil"></span> Edit
+                    </button>
+                    <button type="submit"
+                            ng-click="delete(Patient.id)"
+                            class="btn btn-danger">
+                        <span class="glyphicon glyphicon-remove-circle"></span> Delete
+                    </button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
